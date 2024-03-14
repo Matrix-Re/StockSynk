@@ -1,0 +1,25 @@
+RewriteEngine On
+
+# On désactive l'option de navigation dans les répertoires du site
+Options -Indexes
+# On redirige l'utilisateur vers une page d'erreur si le code d'état http et 403
+ErrorDocument 403 /index.php?url=$null
+
+# Ne rien faire pour les fichiers avec les extensions .js, .css, .png, .jpg, .jpeg, .gif et .ico
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule \.(js|css|png|jpe?g|gif|ico)$ - [NC,L]
+
+# Rediriger toutes les autres requêtes vers index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [NC,L]
+
+# On bloque l'affichage de tous les fichiers avec l'extension .php
+<FilesMatch "\.php$">
+    Require all denied
+</FilesMatch>
+
+# On autorise uniquement le fichier index.php
+<Files "index.php">
+    Require all granted
+</Files>

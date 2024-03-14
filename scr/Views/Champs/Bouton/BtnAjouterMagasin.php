@@ -1,0 +1,1 @@
+<button class="ButtonAfficherMagasin btn btn-primary">Ajouter un magasin</button>

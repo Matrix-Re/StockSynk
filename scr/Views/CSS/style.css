@@ -1,0 +1,126 @@
+/* STYLE DU MODAL (FOND GRIS) */
+#modal {
+     background-color: rgba(0, 0, 0, 0.4);
+     position: fixed;
+     top: 0px;
+     left: 0px;
+     width: 100vw;
+     height: 100vh;
+     z-index: 1000;
+   }
+/* STYLE DES POPUP */
+.MargePopup{
+     margin-top: 10vh;
+}
+.popup{
+     background-color: white;
+     padding: 10px;
+     border: solid 1px;
+     border-radius: 10px;
+}
+
+/* STYLE DE LA POPUP INFORMATION */
+.popupInformation {
+     margin: 10vh 20vw !important;
+}
+.popupInformation *{
+     margin: 0;
+}
+.popupInformation button{
+     margin-left: 85%;
+}
+
+/* STYLE DES POPUP D'EDITION */
+.popupEdition{
+     width: min-content;
+}
+#ClosePopup{
+     display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+.btn-submit{
+     margin-top: 10px;
+}
+
+/* STYLE DE LA BARRE DE NAVIGATION */
+.Header{
+     padding-bottom: 0px !important;
+     background-color: #0d6efd;
+}
+.Header button,
+.Header b{
+     font-weight: bold;
+     color:#f8f9fa !important;
+}
+.UtilisateurConnecter{
+     padding-top: 8px;
+     padding-right: 20px;
+}
+
+/* STYLE DU PIED DE PAGE */
+.Footer{
+     background-color: rgb(202, 202, 202);
+     padding: 35px;
+}
+
+/* STYLE DU CORP DU SITE / LE CONTENT */
+.Content{
+     padding: 10px 10%;
+}
+
+/* STYLE PAGE CONNEXION */
+.formConnexion{
+     background-color: rgb(202, 202, 202);
+     border-radius: 10px;
+     padding: 10px;
+     border: solid;
+}
+
+/* STYLE DE LA PAGE D'ACCUEIL */
+td,
+th {
+     border: 1px solid black;
+}
+
+/* STYLE COMBOBOX CHECKBOX */
+.multiselect {
+     width: 100%;
+}
+
+.selectBox {
+     position: relative;
+}
+
+.selectBox select {
+     width: 100%;
+     font-weight: bold;
+}
+
+.overSelect {
+     position: absolute;
+     left: 0;
+     right: 0;
+     top: 0;
+     bottom: 0;
+}
+
+#checkboxes {
+     display: none;
+     border: 1px #dadada solid;
+}
+
+#checkboxes label {
+     display: block;
+}
+
+#checkboxes label:hover {
+     background-color: #1e90ff;
+}
+
+/* STYLE COMBO BOX */
+
+.form-select{
+     width: min-content;
+     display: inline-block;
+}

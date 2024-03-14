@@ -1,0 +1,1 @@
+<button class="ButtonAfficherQRCode btn btn-primary">Ajouter un QRCode</button>

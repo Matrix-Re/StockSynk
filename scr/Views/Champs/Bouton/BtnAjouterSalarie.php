@@ -1,0 +1,1 @@
+<button class="ButtonAfficherSalarie btn btn-primary">Ajouter un salarie</button>
