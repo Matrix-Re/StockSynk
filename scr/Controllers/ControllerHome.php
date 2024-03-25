@@ -2,9 +2,19 @@
 
 require_once './Controllers/Controller.php';
 require_once './Models/ModelConnexion.php';
+
+/**
+ * Class ControllerHome
+ *
+ * This class extends the Controller class and provides methods for managing the home page.
+ */
 class ControllerHome extends Controller
 {
-
+    /**
+     * ControllerHome constructor.
+     *
+     * Starts the session, manages the connection, and handles actions.
+     */
      public function __construct()
      {
           session_start();
@@ -35,7 +45,11 @@ class ControllerHome extends Controller
           }
      }
 
-     // Fait une action et retoune une réponse
+    /**
+     * Handles AJAX actions.
+     *
+     * Depending on the action, it displays a popup, validates a catalogue, changes the state of a catalogue, updates a catalogue table, etc.
+     */
      private static function ActionJQuery()
      {
           $Data = [''];
@@ -147,7 +161,11 @@ class ControllerHome extends Controller
           }
      }
 
-     // Fait une action et recharge la page
+    /**
+     * Handles non-AJAX actions.
+     *
+     * If the logout action is set and the connection is established, it logs out the user.
+     */
      private static function Action()
      {
           // Action

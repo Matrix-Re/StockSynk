@@ -1,7 +1,19 @@
 <?php
 
+/**
+ * Class Router
+ *
+ * This class provides methods for routing requests.
+ */
 class Router{
 
+    /**
+     * Routes the request to the appropriate controller.
+     *
+     * It retrieves the URL, extracts the controller name, checks if the controller file exists, and if so, creates a new instance of the controller.
+     * If the controller file does not exist, it displays an error message.
+     * If no controller is specified in the URL, it defaults to the ControllerConnexion.
+     */
      public function routeReq(){
           
           $url = [''];

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Lists the QR codes.
+ *
+ * @param int $storeID The store ID.
+ * @return array The list of QR codes.
+ */
 class salarie extends Model{
 
      // Attribut
@@ -9,19 +15,39 @@ class salarie extends Model{
      private $Status = "";
      private $Actif = true;
 
-     // Constructeur
+    /**
+     * salarie constructor.
+     *
+     * Initializes a salarie object. If an ID is provided, it retrieves the employee information.
+     *
+     * @param int $id_salarie The employee ID.
+     */
      public function __construct($id_salarie = 0){
           if ($id_salarie != 0) {
                $this->ID_Salarie = $id_salarie;
                $this->getInformation();
           }
      }
-     
-     // Accesseur
+
+    /**
+     * Gets the value of a property.
+     *
+     * @param string $name The property name.
+     * @return mixed The property value.
+     */
      public function __get($name) { return $this->$name;  }
+
+    /**
+     * Sets the value of a property.
+     *
+     * @param string $name The property name.
+     * @param mixed $value The property value.
+     */
      public function __set($name, $value) { $this->$name = $value; }
 
-     // Methode
+    /**
+     * Retrieves the employee information.
+     */
      private function getInformation(){
           $reqSelect = "SELECT * FROM salarie WHERE ID_Salarie = ". $this->ID_Salarie;
 
@@ -37,6 +63,11 @@ class salarie extends Model{
 
      }
 
+    /**
+     * Saves the employee.
+     *
+     * If the employee ID is 0, it adds the employee. Otherwise, it edits the employee.
+     */
      public function Enregister(){
           if ($this->ID_Salarie == 0) {
                $this->AddUser();
@@ -45,6 +76,11 @@ class salarie extends Model{
           }
      }
 
+    /**
+     * Adds an employee.
+     *
+     * It adds the employee to the database and displays a message.
+     */
      private function AddUser(){              
           // On enregistre l'utilisateur
           $reqInsert = "INSERT INTO Salarie(Identifiant, Password, Status) VALUES ('" . $this->Identifiant . "','" . $this->Password . "','" . $this->Status . "')"; 
@@ -60,7 +96,12 @@ class salarie extends Model{
           
           Controller::Message("Information","Utilisateur " . $this->Identifiant . " enregistrer");
      }
-     
+
+    /**
+     * Edits an employee.
+     *
+     * It updates the employee and displays a message.
+     */
      private function EditUser(){
           // Initialisation          
           $ContratSalarie = $this->listContratSalarie(); // On récupère la liste des contrats
@@ -96,7 +137,12 @@ class salarie extends Model{
           
           Controller::Message("Information","Utilisateur " . $this->Identifiant . " à été mise à jour");
      }
-     
+
+    /**
+     * Changes the state of the employee.
+     *
+     * It updates the employee state and displays a message.
+     */
      public function ChangeEtat(){        
           $NouvelleEtat = 0;
           $NomEtat = "inactif";
@@ -110,6 +156,11 @@ class salarie extends Model{
           Controller::Message("Information","Le Salarie " . $this->Identifiant . " est maintenant " . $NomEtat);
      }
 
+    /**
+     * Lists the contracts of an employee.
+     *
+     * @return array The list of contracts.
+     */
      public function listContratSalarie(){
           // Initialisation
           $resultat = [];
@@ -131,10 +182,11 @@ class salarie extends Model{
 
 }
 
-//-----------------------//
-//  Fonction hors class  //
-//-----------------------//
-
+/**
+ * Lists the employees.
+ *
+ * @return array The list of employees.
+ */
 function listSalarie(){
      global $database;
      $users = [];

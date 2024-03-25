@@ -1,15 +1,25 @@
 <?php
 
+/**
+ * Class magasin
+ *
+ * This class extends the Model class and provides methods for managing stores.
+ */
 class magasin extends Model{
 
-     // Attribut
      private $ID_Magasin = 0;
      private $Nom = "";
      private $CP = "";
      private $Ville = "";
      private $Actif = true;
 
-     // Constructeur
+    /**
+     * magasin constructor.
+     *
+     * Initializes a magasin object. If an ID is provided, it retrieves the store information.
+     *
+     * @param int $id_magasin The store ID.
+     */
      public function __construct($id_magasin = 0){
           if ($id_magasin != 0) {
                $this->ID_Magasin = $id_magasin;
@@ -17,12 +27,26 @@ class magasin extends Model{
           }
      }
 
-     // Accesseur
+    /**
+     * Gets the value of a property.
+     *
+     * @param string $name The property name.
+     * @return mixed The property value.
+     */
      public function __get($name) { return $this->$name;  }
+
+    /**
+     * Sets the value of a property.
+     *
+     * @param string $name The property name.
+     * @param mixed $value The property value.
+     */
      public function __set($name, $value) { $this->$name = $value; }
 
 
-     // Methode
+    /**
+     * Retrieves the store information.
+     */
      private function getInformation(){
           $reqSelect = "SELECT * FROM magasin WHERE ID_Magasin = ". $this->ID_Magasin;
 
@@ -38,6 +62,11 @@ class magasin extends Model{
 
      }
 
+    /**
+     * Saves the store.
+     *
+     * If the store ID is 0, it adds the store. Otherwise, it edits the store.
+     */
      public function Enregister(){
           if ($this->ID_Magasin == 0) {
                $this->AddStore();
@@ -46,6 +75,11 @@ class magasin extends Model{
           }
      }
 
+    /**
+     * Adds a store.
+     *
+     * It adds the store to the database and displays a message.
+     */
      private function AddStore(){               
           $reqInsert = "INSERT INTO Magasin(NomMagasin, CodePostal, Ville) VALUES ('" . $this->Nom . "','" . $this->CP . "','" . $this->Ville . "')"; 
           
@@ -61,7 +95,12 @@ class magasin extends Model{
           
           Controller::Message("Information","Magasin " . $this->Nom . " enregistrer");
      }
-     
+
+    /**
+     * Edits a store.
+     *
+     * It updates the store and displays a message.
+     */
      private function EditStore(){
           $reqUpdate = "UPDATE Magasin SET NomMagasin= '" . $this->Nom . "',CodePostal= '" . $this->CP . "',Ville= '". $this->Ville . "' WHERE ID_Magasin = " . $this->ID_Magasin; 
           
@@ -70,6 +109,11 @@ class magasin extends Model{
           Controller::Message("Information","Magasin " . $this->Nom . " à été mise à jour");
      }
 
+    /**
+     * Changes the state of the store.
+     *
+     * It updates the store state and displays a message.
+     */
      public function ChangeEtat(){
           $NouvelleEtat = 0;
           $NomEtat = "inactif";
@@ -86,6 +130,11 @@ class magasin extends Model{
           Controller::Message("Information","Le magasin " . $this->Nom . " est maintenant " . $NomEtat);
      }
 
+    /**
+     * Lists the contracts of a store.
+     *
+     * @return array The list of contracts.
+     */
      public function listContratMagasin(){
           
           $resultat = [];
@@ -101,6 +150,11 @@ class magasin extends Model{
           return $resultat;
      }
 
+    /**
+     * Gets the number of articles.
+     *
+     * @return int The number of articles.
+     */
      public function ObtenirNombreArticle(){
           // TODO : Selectionner le nombre d'article avec quantité suppérieur à 0
           
@@ -119,6 +173,11 @@ class magasin extends Model{
           return $resultat;
      }
 
+    /**
+     * Gets the number of QR codes.
+     *
+     * @return int The number of QR codes.
+     */
      public function ObtenirNombreQRCode(){
           
           $resultat = 0;
@@ -137,10 +196,11 @@ class magasin extends Model{
 
 }
 
-//-----------------------//
-//  Fonction hors class  //
-//-----------------------//
-
+/**
+ * Lists the stores.
+ *
+ * @return array The list of stores.
+ */
 function listMagasin(){
      
      $listMagasin = [];

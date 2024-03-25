@@ -1,6 +1,12 @@
 <?php
 
 require_once './Models/Model.php';
+
+/**
+ * Class catalogue
+ *
+ * This class extends the Model class and provides methods for managing catalogues.
+ */
 class catalogue extends Model{
 
      // Attribut
@@ -10,8 +16,14 @@ class catalogue extends Model{
      private $PrixReference = 0;
      private $Quantite = 0;
      private $Actif = true;
-    
-     // Constructeur
+
+    /**
+     * catalogue constructor.
+     *
+     * Initializes a catalogue object. If an ID is provided, it retrieves the catalogue information.
+     *
+     * @param int $id_catalogue The catalogue ID.
+     */
      public function __construct($id_catalogue = 0){
           if ($id_catalogue != 0) {
                $this->ID_Catalogue = $id_catalogue;
@@ -19,10 +31,25 @@ class catalogue extends Model{
           }
      }
 
-     // Accesseur
+    /**
+     * Gets the value of a property.
+     *
+     * @param string $name The property name.
+     * @return mixed The property value.
+     */
      public function __get($name) { return $this->$name;  }
+
+    /**
+     * Sets the value of a property.
+     *
+     * @param string $name The property name.
+     * @param mixed $value The property value.
+     */
      public function __set($name, $value) { $this->$name = $value; }
 
+    /**
+     * Retrieves the catalogue information.
+     */
      private function getInformation(){
           $reqSelect = "SELECT PROPOSER.ID_Catalogue, PROPOSER.Quantite, catalogue.NomCatalogue, catalogue.URLCatalogue, catalogue.PrixReference, catalogue.Actif
                FROM PROPOSER, catalogue WHERE PROPOSER.ID_Catalogue = catalogue.ID_Catalogue AND
@@ -41,6 +68,12 @@ class catalogue extends Model{
 
      }
 
+    /**
+     * Saves the catalogue.
+     *
+     * If the quantity and reference price are positive, it adds or edits the catalogue.
+     * Otherwise, it displays an error message.
+     */
      public function Enregister(){
           // On vérifie que la quantite et le prix ref est positif
           if ($this->Quantite >= 0 && $this->PrixReference >= 0) {
@@ -58,6 +91,12 @@ class catalogue extends Model{
           }                    
      }
 
+    /**
+     * Adds a catalogue.
+     *
+     * It adds the product to the catalogue table and to the proposals of all stores.
+     * Then, it displays a message.
+     */
      private function AddCatalogue(){       
           // On ajoute le produit dans la table catalogue
           $reqInsert = "INSERT INTO catalogue(NomCatalogue, URLCatalogue, PrixReference) 
@@ -83,7 +122,12 @@ class catalogue extends Model{
           
           Controller::Message("Information","catalogue " . $this->Nom . " enregistrer");
      }
-     
+
+    /**
+     * Edits a catalogue.
+     *
+     * It updates the catalogue and displays a message.
+     */
      private function EditCatalogue(){
           $reqUpdate = "BEGIN TRANSACTION;
           UPDATE catalogue
@@ -115,6 +159,11 @@ class catalogue extends Model{
           Controller::Message("Information","Le produit " . $this->Nom . " à été mise à jour");
      }
 
+    /**
+     * Changes the state of the catalogue.
+     *
+     * It updates the catalogue state and displays a message.
+     */
      public function ChangeEtat(){  
           $NouvelleEtat = 0;
           $NomEtat = "inactif";
@@ -133,6 +182,12 @@ class catalogue extends Model{
 
 }
 
+/**
+ * Lists the catalogues.
+ *
+ * @param int $storeID The store ID.
+ * @return array The catalogues.
+ */
 function listCatalogue($storeID){
      // Initialisation
      $Catalogue = [];

@@ -2,18 +2,29 @@
 
 require_once './Models/ModelProduit.php';
 
+/**
+ * Lists the employees.
+ *
+ * @return array The list of employees.
+ */
 class vente extends Model{
 
-     // Attribut
      private $ID_Vente = "";
      private $DateVente = "";
      private $ID_Magasin = "";
      private $NbArticle = "";
      private $PrixTotal = "";
      
-     private $Panier = [];  
-    
-     // Constructeur
+     private $Panier = [];
+
+    /**
+     * vente constructor.
+     *
+     * Initializes a vente object with the provided store ID. If a sale ID is provided, it retrieves the sale information.
+     *
+     * @param int $id_magasin The store ID.
+     * @param int $id_vente The sale ID.
+     */
      public function __construct($id_magasin, $id_vente = 0){
           $this->ID_Magasin = $id_magasin;
           if ($id_vente != 0) {
@@ -22,11 +33,25 @@ class vente extends Model{
           }
      }
 
-     // Accesseur
+    /**
+     * Gets the value of a property.
+     *
+     * @param string $name The property name.
+     * @return mixed The property value.
+     */
      public function __get($name) { return $this->$name;  }
+
+    /**
+     * Sets the value of a property.
+     *
+     * @param string $name The property name.
+     * @param mixed $value The property value.
+     */
      public function __set($name, $value) { $this->$name = $value; }
 
-     // Methode
+    /**
+     * Retrieves the sale information.
+     */
      private function getInformation(){
           $reqSelect = "SELECT * FROM vente WHERE ID_Vente = ". $this->ID_Vente;
 
@@ -40,6 +65,11 @@ class vente extends Model{
 
      }
 
+    /**
+     * Adds a sale.
+     *
+     * It adds the sale to the database and displays a message.
+     */
      public function AddVente(){
 
           $reqInsert = "INSERT INTO vente(DateVente, ID_Magasin) VALUES ('".date("Ymd")."', $this->ID_Magasin)";
@@ -64,6 +94,13 @@ class vente extends Model{
           Controller::Message("Information","La vente à été enregistré");
      }
 
+    /**
+     * Adds a product to the cart.
+     *
+     * @param int $id_catalogue The catalogue ID.
+     * @param float $prixunitaire The unit price.
+     * @param int $quantite The quantity.
+     */
      public function AddPanier($id_catalogue, $prixunitaire, $quantite){
           
           require_once './Models/ModelCatalogue.php';
@@ -82,12 +119,23 @@ class vente extends Model{
           
      }
 
+    /**
+     * Removes a product from the cart.
+     *
+     * @param int $indice The index of the product in the cart.
+     */
      public function DeletePanier($indice){
           unset($this->Panier[$indice]);
           $this->Panier = array_values($this->Panier);
           echo "Article supprimé du panier";
      }
 
+    /**
+     * Gets the quantity of a product.
+     *
+     * @param int $ID_Catalogue The catalogue ID.
+     * @return int The quantity of the product.
+     */
      private function QuantiteProduit($ID_Catalogue){
           $resultat = 0;
           foreach ($this->Panier as $Produit) {
@@ -98,6 +146,9 @@ class vente extends Model{
           return $resultat;
      }
 
+    /**
+     * Gets the details of a sale.
+     */
      public function DetailVente(){
 
           $reqSelect = "SELECT represente.ID_Catalogue, represente.PrixUnitaire, represente.Quantite
@@ -117,10 +168,12 @@ class vente extends Model{
      }
 }
 
-//-----------------------//
-//  Fonction hors class  //
-//-----------------------//
-
+/**
+ * Lists the sales.
+ *
+ * @param int $storeID The store ID.
+ * @return array The list of sales.
+ */
 function listVente($storeID){
      // Initialisation
      global $database;

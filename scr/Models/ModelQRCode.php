@@ -1,8 +1,13 @@
 <?php
 
-// Initialisation
 require "phpqrcode/qrlib.php";
 
+/**
+ * Sets the value of a property.
+ *
+ * @param string $name The property name.
+ * @param mixed $value The property value.
+ */
 class qrcodeimage extends Model{
 
      // Attribut
@@ -11,7 +16,13 @@ class qrcodeimage extends Model{
      private $Actif = true;
      private $ID_Catalogue = 0;
 
-     // Constructeur
+    /**
+     * qrcodeimage constructor.
+     *
+     * Initializes a qrcodeimage object. If an ID is provided, it retrieves the QR code information.
+     *
+     * @param int $id_qrcode The QR code ID.
+     */
      public function __construct($id_qrcode = 0){
           if ($id_qrcode != 0) {
                $this->ID_QRCode = $id_qrcode;
@@ -19,11 +30,25 @@ class qrcodeimage extends Model{
           }
      }
 
-     // Accesseur
+    /**
+     * Gets the value of a property.
+     *
+     * @param string $name The property name.
+     * @return mixed The property value.
+     */
      public function __get($name) { return $this->$name;  }
+
+    /**
+     * Sets the value of a property.
+     *
+     * @param string $name The property name.
+     * @param mixed $value The property value.
+     */
      public function __set($name, $value) { $this->$name = $value; }
 
-     // Methode
+    /**
+     * Retrieves the QR code information.
+     */
      private function getInformation(){
           $reqSelect = "SELECT qrcode.ID_QRCode, qrcode.NomQRCode, qrcode.Actif, qrcode.ID_Catalogue, catalogue.NomCatalogue
                FROM qrcode, catalogue
@@ -40,6 +65,11 @@ class qrcodeimage extends Model{
 
      }
 
+    /**
+     * Saves the QR code.
+     *
+     * If the QR code ID is 0, it adds the QR code. Otherwise, it updates the QR code.
+     */
      public function Save(){
           if ($this->ID_QRCode == 0) {
                $this->Insert();
@@ -48,6 +78,9 @@ class qrcodeimage extends Model{
           }
      }
 
+    /**
+     * Inserts a new QR code.
+     */
      private function Insert(){    
           // On enregistre l'utilisateur
           $reqInsert = "INSERT INTO qrcode(NomQRCode, Actif, ID_Magasin, ID_Catalogue) VALUES ('" . $this->Nom . "','" . (int)$this->Actif . "','" . $_SESSION['Connexion']->__get('ID_Store') . "','" . $this->ID_Catalogue . "')"; 
@@ -57,6 +90,9 @@ class qrcodeimage extends Model{
           Controller::Message("Information","QRCode " . $this->Nom . " enregistrer");
      }
 
+    /**
+     * Updates an existing QR code.
+     */
      private function Update(){
      
           // On enregistre l'utilisateur
@@ -71,6 +107,9 @@ class qrcodeimage extends Model{
           Controller::Message("Information","QRCode " . $this->Nom . " enregistrer");
      }
 
+    /**
+     * Changes the state of the QR code.
+     */
      public function ChangeEtat(){
           $NouvelleEtat = 0;
           $NomEtat = "inactif";
@@ -88,6 +127,11 @@ class qrcodeimage extends Model{
           Controller::Message("Erreur","Le QRCode " . $this->Nom. " est maintenant " . $NomEtat);
      }
 
+    /**
+     * Gets the URL of the catalogue.
+     *
+     * @return string The URL of the catalogue.
+     */
      public function GetURLCatalogue(){
           $URLCatalogue = "";
           $reqSelect = "SELECT URLCatalogue FROM Catalogue WHERE ID_Catalogue = " . $this->ID_Catalogue;
@@ -104,6 +148,11 @@ class qrcodeimage extends Model{
           return $URLCatalogue;
      }
 
+    /**
+     * Generates a QR code.
+     *
+     * @return string The directory link of the generated QR code.
+     */
      public function GenererQRCode(){
           $linkWeb = "http://Gestion-Stock/qrcode/".$this->ID_QRCode;
           $linkDirectory = "";
@@ -129,6 +178,9 @@ class qrcodeimage extends Model{
           return $linkDirectory;
      }
 
+    /**
+     * Deletes the QR code image.
+     */
      public function SupprimerImageQRCode(){
           $filename = "qrcode" . $this->ID_QRCode . ".png";
           $Directory = "phpqrcode/qrcodeimage";
@@ -138,6 +190,9 @@ class qrcodeimage extends Model{
                unlink($PNG_WEB_DIR . $filename);
      }
 
+    /**
+     * Increments the scan count.
+     */
      public function IncrementScan(){
 
           $reqSelect = "SELECT Scan.ID_Scan,
@@ -164,10 +219,12 @@ class qrcodeimage extends Model{
 
 }
 
-//-----------------------//
-//  Fonction hors class  //
-//-----------------------//
-
+/**
+ * Lists the QR codes.
+ *
+ * @param int $storeID The store ID.
+ * @return array The list of QR codes.
+ */
 function listQRCode($storeID){
      // Initialisation
      global $database;

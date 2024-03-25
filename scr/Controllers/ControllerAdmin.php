@@ -2,9 +2,20 @@
 
 require_once './Controllers/Controller.php';
 require_once './Models/ModelConnexion.php';
+
+/**
+ * Class ControllerAdmin
+ *
+ * This class extends the Controller class and provides methods for managing the admin panel.
+ */
 class ControllerAdmin extends Controller
 {
 
+    /**
+     * ControllerAdmin constructor.
+     *
+     * Starts the session, manages the connection, checks if the user is an admin, and handles actions.
+     */
      public function __construct()
      {
           session_start();
@@ -33,6 +44,9 @@ class ControllerAdmin extends Controller
           }
      }
 
+    /**
+     * Handles AJAX actions.
+     */
      private static function ActionJQuery()
      {
           $Data = [''];
@@ -103,6 +117,9 @@ class ControllerAdmin extends Controller
           }
      }
 
+    /**
+     * Handles non-AJAX actions.
+     */
      private static function Action()
      {
           // Action

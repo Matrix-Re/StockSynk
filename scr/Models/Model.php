@@ -1,10 +1,21 @@
 <?php
 
+/**
+ * Class Model
+ *
+ * This abstract class provides methods for database operations.
+ */
 abstract class Model
 {
 
-     // Attribut
+    /**
+     * Database connection attribute.
+     */
      public static $db = NULL;
+
+    /**
+     * Database connection details.
+     */
      private static $AddressBDD = "127.0.0.1";
      private static $TypeServer = "mysql:host";
      private static $DBName = "gestionstock";
@@ -12,7 +23,12 @@ abstract class Model
      private static $Login = "root";
      private static $password = "";
 
-     // Méthode
+    /**
+     * Sets the database connection.
+     *
+     * It creates a new PDO instance and assigns it to the $db attribute.
+     * If the connection fails, it displays an error message.
+     */
      private static function SetBdd()
      {
           $bdd =  self::$TypeServer . "=" . self::$AddressBDD . ";" . self::$TypeBDD . "=" . self::$DBName;
@@ -26,6 +42,16 @@ abstract class Model
           }
      }
 
+    /**
+     * Executes a query.
+     *
+     * It prepares and executes a query. If the query is a SELECT statement, it fetches all the results.
+     * If the execution fails, it displays an error message.
+     *
+     * @param string $query The SQL query.
+     * @param array|null $parameters The query parameters.
+     * @return mixed The query result.
+     */
      public static function ExecuteQuery($query, $parameters = NULL)
      {
           $resultat = NULL;
@@ -52,6 +78,11 @@ abstract class Model
           return $resultat;
      }
 
+    /**
+     * Gets the ID of the last inserted row.
+     *
+     * @return string The ID of the last inserted row.
+     */
      public static function GetID()
      {
           return self::$db->lastInsertId();

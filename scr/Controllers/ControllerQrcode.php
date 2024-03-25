@@ -3,8 +3,19 @@
 require_once './Controllers/Controller.php';
 require_once './Models/ModelConnexion.php';
 require_once './Models/ModelVente.php';
+
+/**
+ * Class ControllerQrcode
+ *
+ * This class extends the Controller class and provides methods for managing QR codes.
+ */
 class ControllerQrcode extends Controller
 {
+    /**
+     * ControllerQrcode constructor.
+     *
+     * Starts the session, initializes a QR code, includes the necessary models, retrieves information, determines the user type (employee/client), and handles actions.
+     */
      public function __construct()
      {
           session_start();
@@ -47,6 +58,11 @@ class ControllerQrcode extends Controller
           }
      }
 
+    /**
+     * Handles AJAX actions.
+     *
+     * Depending on the action, it displays a cart, adds a product to the cart, modifies a product in the cart, deletes a product from the cart, or gets the price of a product.
+     */
      private static function ActionJQuery()
      {
           $Data = [''];
@@ -85,6 +101,11 @@ class ControllerQrcode extends Controller
           }
      }
 
+    /**
+     * Handles non-AJAX actions.
+     *
+     * If the logout action is set and the connection is established, it logs out the user. If the new sale object does not exist in the session, it creates one. If the add sale action is set, it records the sale.
+     */
      private static function Action()
      {
           // Action
