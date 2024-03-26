@@ -26,6 +26,20 @@ Ce projet est une plateforme de gestion de stocks destiner au commerciants
 - Création de plusieur magasin avec leur propre stock
 - Affectation de magasin à plusieur salarie
 
+## Mise en place
+
+Pour configurer ce projet, suivez les étapes ci-dessous :
+
+1. L'utilisateur administrateur par défaut est `jean` et le mot de passe est `123456789`.
+
+2. Pour mettre en place la base de données, exécutez le script `Création de la structure.sql` qui se trouve dans le répertoire `DB`.
+
+3. Pour peupler la base de données avec des données par défaut, exécutez le script `Création des enregistrements par défaut.sql` qui se trouve également dans le répertoire `DB`.
+
+4. Si vous souhaitez supprimer toutes les données et la structure de la base de données, exécutez le script `Suppression de la structure.sql`.
+
+Assurez-vous d'avoir les privilèges nécessaires pour exécuter ces scripts sur votre serveur de base de données.
+
 ## Roadmap
 - [x] Gestion des comptes utilisateurs
 - [x] Gestion des QRCode et du nombre de scans

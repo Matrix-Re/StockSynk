@@ -18,7 +18,7 @@ abstract class Model
      */
      private static $AddressBDD = "127.0.0.1";
      private static $TypeServer = "mysql:host";
-     private static $DBName = "gestionstock";
+     private static $DBName = "stocksynk";
      private static $TypeBDD = "dbname";
      private static $Login = "root";
      private static $password = "";
